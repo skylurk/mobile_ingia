@@ -1,10 +1,35 @@
 html,
 body {
+  overflow: hidden;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
+
+/* SCROLL BAR  */
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #5976fa; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #5976fa; 
+}
+/* SCROLL BAR  */
 
 a {
   color: inherit;
@@ -14,3 +39,144 @@ a {
 * {
   box-sizing: border-box;
 }
+
+/* STYLING FOR FILLED BUTTON  */
+.filled_btn {
+  background-color: #1741FF;
+  height: 50px;
+  width: 80%;
+  border-radius: 50px;
+  border: none;
+  color: white;
+  transition: background-color 0.5s ease;
+}
+.filled_btn:hover{
+  background-color: #fff;
+  color: #1741FF;
+  border: 1px solid #1741FF;
+  cursor: pointer;
+}
+.outline_btn {
+  background-color: #fff;
+  height: 50px;
+  width: 80%;
+  border-radius: 50px;
+  border: solid 1px #1741FF;
+  color: #1741FF;
+  transition: background-color 0.5s ease;
+}
+.outline_btn:hover{
+  background-color: #1741FF;
+  color: #fff;
+  cursor: pointer;
+}
+/* STYLING FOR FILLED BUTTON  */
+
+/* STYLING FOR TEXT INPUT  */
+
+/* STYLING FOR TEXT INPUT  */
+
+/* STYLING FOR NAVBAR  */
+.navbar {
+  height: 70px;
+  width: 100%;
+  background-color: rgb(202, 202, 202);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: fixed;
+  /* justify-content: center; */
+}
+.navbar img {
+  height: 50px;
+}
+/* STYLING FOR NAVBAR  */
+
+/* STYLING FOR MOBILE LANDING  */
+.mobile-landing {
+  overflow: auto;
+  height: 100vh;
+  overflow-x: hidden;
+  text-align: center;
+}
+/* STYLING FOR MOBILE LANDING  */
+
+/* SPLASH SCREEN STYLING  */
+.splash-screen {
+  background-color: #1741FF;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 20;
+}
+.splash-screen img {
+  width: 90%;
+}
+/* SPLASH SCREEN STYLING  */
+
+/* STYLING FOR IN OR OUT  */
+.in-or-out {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 100px;
+}
+.in-or-out h3 {
+  margin-bottom: 50px;
+  font-size: 16pt;
+}
+.in-or-out h4 {
+  font-size: 14pt;
+  font-weight: 400;
+}
+.in-or-out button {
+  font-size: 14pt;
+}
+.in-or-out a {
+  width: 100%
+}
+/* STYLING FOR IN OR OUT  */
+
+/* STYLING FOR FORMS  */
+.forms{
+  overflow: auto;
+  height: 100vh;
+}
+.check-in{
+  height: 4000px;
+  text-align: center;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+.checkin-form{
+  width: 100%;
+}
+.checkin-form h3 {
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+ /* label focus color */
+ .input-field input[type=text]:focus + label {
+  color: #000;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 0 0 #000;
+}
+
+.f-input {
+  height: 200px !important;
+  background-color: red;
+}
+
+/* STYLING FOR FORMS  */
+
+
