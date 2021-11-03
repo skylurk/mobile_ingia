@@ -2,6 +2,9 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 
+import { initializeApp  } from '@firebase/app';
+import { getFirestore } from '@firebase/firestore';
+
 const clientCredentials = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -12,9 +15,13 @@ const clientCredentials = {
 
 };
 
-if (!firebase.getApps.length){
-    firebase.initializeApp(clientCredentials);
-}
+
+const app = initializeApp(clientCredentials);
+export const db = getFirestore(app);
+
+// if (!firebase.getApps.length){
+//     firebase.initializeApp(clientCredentials);
+// }
 
 export default firebase;
 

@@ -1,21 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import firebase from '../../firebase/clientApp';
 import { useCollection } from 'react-firebase-hooks/firestore';
+import { db } from '../../firebase/clientApp';
+import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 
 export default function Checkin() {
     const [ first_name, setFirstName ] = useState('');
     const [ last_name, setLastName ] = useState('');
     const [ phone_number, setPhoneNumber ] = useState('');
 
-    const handleSubmit = (e) => {
+
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(first_name);
-        console.log(last_name);
-        console.log(phone_number);
+        await addDoc(newVisCollectionRef, {first_name: first_name, last_name: last_name, phone_number: phone_number})
+
     }
-    
+
+    const [visitors, setvisitors] = useState([]);
 
 
+    const visitorCollectionRef = collection(db, 'visitors');
+    const newVisCollectionRef = collection(db, 'newVis');
+
+    useEffect(() =>{
+        const getVisitors = async () => {
+            const visitors = await getDocs(visitorCollectionRef);
+            setvisitors(visitors.docs.map((doc) => ({...doc.data(), id: doc.id})));
+        }
+
+        getVisitors();
+    }, [])
+
+    console.log(visitors);
+
+    const docInstance = doc(db, 'collection', 'document id not as string ')
+
+    const docUpdate = async (id, parameters) =>{
+        const newF = {one: 'more'}
+        await updateDoc(docInstance, newF )
+    }
+
+    const docDelete = async (id) =>{
+        await deleteDoc(docInstance)
+    }
 
     return (
         <div className='check-in'>
