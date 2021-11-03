@@ -2,47 +2,38 @@ import React, { useState, useEffect } from 'react';
 import firebase from '../../firebase/clientApp';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { db } from '../../firebase/clientApp';
-import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, where, query } from 'firebase/firestore';
 
 export default function Checkin() {
+
+    // FORM INPUT 
     const [ first_name, setFirstName ] = useState('');
     const [ last_name, setLastName ] = useState('');
     const [ phone_number, setPhoneNumber ] = useState('');
 
+    // GET LOCATION ITEMS 
+    const [ location_items, setLocationItems ] = useState([]);
 
+    // CREATE LOCATION ITEM REFERENCE 
+    const locationItemCollectionRef = query(collection(db, 'location_items'), where("location", "==", "Dp0mDIwrilZXYHPwdROT"));
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        await addDoc(newVisCollectionRef, {first_name: first_name, last_name: last_name, phone_number: phone_number})
-
-    }
-
-    const [visitors, setvisitors] = useState([]);
-
-
-    const visitorCollectionRef = collection(db, 'visitors');
-    const newVisCollectionRef = collection(db, 'newVis');
-
-    useEffect(() =>{
-        const getVisitors = async () => {
-            const visitors = await getDocs(visitorCollectionRef);
-            setvisitors(visitors.docs.map((doc) => ({...doc.data(), id: doc.id})));
+    useEffect(() => {
+        const getLocationItems = async () => {
+            const location_items_data = await getDocs(locationItemCollectionRef);
+            setLocationItems(location_items_data.docs.map((doc) => ({...doc.data(), id: doc.id})));
         }
 
-        getVisitors();
+        getLocationItems();
     }, [])
-
-    console.log(visitors);
-
-    const docInstance = doc(db, 'collection', 'document id not as string ')
-
-    const docUpdate = async (id, parameters) =>{
-        const newF = {one: 'more'}
-        await updateDoc(docInstance, newF )
-    }
-
-    const docDelete = async (id) =>{
-        await deleteDoc(docInstance)
+    
+    
+    console.log(location_items);
+    
+    
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log(first_name);
     }
 
     return (
