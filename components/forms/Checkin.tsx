@@ -1,41 +1,111 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import firebase from '../../firebase/clientApp';
+import { useCollection } from 'react-firebase-hooks/firestore';
 
-class  Checkin extends  Component{
-    state = {
-        first_name : '',
-        last_name : '', 
-        phone_number : ''
+export default function Checkin() {
+    const [ first_name, setFirstName ] = useState('');
+    const [ last_name, setLastName ] = useState('');
+    const [ phone_number, setPhoneNumber ] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(first_name);
+        console.log(last_name);
+        console.log(phone_number);
     }
     
-    handleSubmit = () => {
 
-    }
 
-    handleChange = () => {
 
-    }
-    render() {
-        console.log(this.state)
-        return (
-            <div className='check-in'>
-                <form action="" className="checkin-form">
-                    <h3>Checking In </h3> 
-                    <div className="input-field">
-                        <input placeholder='First Name' type="text" id="first_name" className="validate" />
-                        <label htmlFor="first_name">First Name</label>
-                    </div>
+    return (
+        <div className='check-in'>
+        <form action="" className="checkin-form" onSubmit={handleSubmit}>
+            <h3>Checking In </h3> 
 
-                    <div className="input-field col s6">
-                        <input id="last_name" type="text" className="validate" />
-                        <label htmlFor="last_name">Last Name</label>
-                    </div>
-                    
-    
-                </form>
+            <div className="input-field mb-40">
+                <input 
+                placeholder='First Name...'
+                type="text" 
+                id='first_name'
+                required 
+                className='validate f-inpt'
+                onChange={e => setFirstName(e.target.value)}
+                />
+
+                <label htmlFor="first_name" className="active fnt-16">
+                    First Name
+                </label>
             </div>
-            )
-    }  
- 
+
+            <div className="input-field mb-40">
+                <input 
+                placeholder='Last Name...'
+                type="text" 
+                id='last_name'
+                required 
+                className='validate f-inpt'
+                onChange={e => setLastName(e.target.value)}
+                />
+
+                <label htmlFor="last_name" className="active fnt-16">
+                    Last Name
+                </label>
+            </div>
+
+            <div className="input-field mb-40">
+                <input 
+                placeholder='Mobile...'
+                type="tel" 
+                minLength={ 8 }
+                id='phone_number'
+                // value={ localStorage.getItem('phone_number') }
+                required 
+                className='validate f-inpt'
+                onChange={e => setPhoneNumber(e.target.value)}
+                />
+
+                <label htmlFor="phone_number" className="active fnt-16">
+                    Mobile Number
+                </label>
+            </div>
+
+
+            
+            <div className="input-field center" >
+                    <button className="filled_btn form-btn z-depth-1" id='mobile-btn-width-full'>
+                        Check In
+                    </button>
+                </div>
+        </form>
+    </div>
+    )
 }
 
-export default Checkin
+// class  Checkin extends  Component{
+//     state = {
+//         first_name : '',
+//         last_name : '', 
+//         phone_number : ''
+//     }
+    
+//     handleSubmit = (e) => {
+//         e.preventDefault() ;
+//         console.log(this.state);
+//     }
+
+//     handleChange = (e) => {
+//         this.setState({
+//             [e.target.id] : e.target.value
+//         })
+//     }
+    
+//     render() {
+//         console.log(this.state)
+//         return (
+
+//             )
+//     }  
+ 
+// }
+
+// export default Checkin

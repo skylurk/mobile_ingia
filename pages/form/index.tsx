@@ -1,12 +1,15 @@
-import { TextField } from '@material-ui/core'
-import { Formik } from 'formik'
+
 import React from 'react'
 import Checkin from '../../components/forms/Checkin'
+import Checkout from '../../components/forms/Checkout'
+import Navbar from '../../components/Navbar';
 
 function index() {
     return (
         <div className='forms'>
+            <Navbar />
             <Checkin />
+            {/* <Checkout /> */}
         </div>
     )
 }
