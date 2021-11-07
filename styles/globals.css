@@ -257,6 +257,28 @@ a {
   width: 100%;
 }
 
+.radio-area {
+  box-sizing: border-box;
+  padding: 10px;
+  text-align-last: left;
+}
+.radio-area h5 {
+  color: #7d7979;
+  font-weight: 500;
+  font-size: 18pt;
+  margin-bottom: 10px;
+}
+.clear-btn{
+  background-color: #1741FF;
+  padding: 10px;
+  width: 100px;
+  color: #fff;
+  border-radius: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 /* STYLING FOR FORMS  */
 
 /* STYLING FOR LOADING PAGE  */

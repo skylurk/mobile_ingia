@@ -10,9 +10,18 @@ export default function Checkin({ location_id }) {
     const [ first_name, setFirstName ] = useState('');
     const [ last_name, setLastName ] = useState('');
     const [ phone_number, setPhoneNumber ] = useState('');
+    const [radioItem, setRadioItem ] = useState('');
+    const [checkboxItem, setCheckboxItem ] = useState('');
 
     // GET LOCATION ITEMS 
     const [ location_items, setLocationItems ] = useState([]);
+
+    // GET RADIO ITEMS 
+    const radio = location_items ? location_items.filter((rad => rad.type === 'radio' && rad.location === location_id)) : null
+
+    // GET CHECKBOX ITEMS 
+    const checkboxes = location_items ? location_items.filter((loc => loc.type === 'checkbox' && loc.location === location_id)) : null
+
 
     // CREATE LOCATION ITEM REFERENCE 
     const locationItemCollectionRef = query(collection(db, 'location_items'), where("location", "==", `${location_id}`));
@@ -27,8 +36,8 @@ export default function Checkin({ location_id }) {
     }, [])
     
     
-    console.log(location_id);
-    console.log(location_items);
+
+    
     
     
     
@@ -101,7 +110,7 @@ export default function Checkin({ location_id }) {
                                 placeholder={form_item.place_holder}
                                 type="text" 
                                 id={ form_item.f_id }
-                                value= {localStorage.getItem(form_item.f_id)}
+                                // value= {localStorage.getItem(form_item.f_id)}
                                 required = {form_item.required}
                                 className='validate f-inpt'
                                 // onChange={this.handleChange}
@@ -113,7 +122,65 @@ export default function Checkin({ location_id }) {
                             </div>
                         )
                     })
-                }
+            }
+
+            {
+                radio && radio
+                .map(radio => {
+                    return(
+                        <div className="radio-area z-depth-1" key={radio.f_id}>
+                            <h5>{radio.label}</h5>
+                            <p>
+                                <label htmlFor={radio.f_id + 'yes'}>
+                                    <input type="radio" 
+                                    name={radio.name} 
+                                    id={radio.f_id + 'yes'}
+                                    value='yes'
+                                    onChange={e => setRadioItem('yes')}
+                                    />
+                                    <span>Yes</span>
+                                </label>
+                            </p>
+                            <div className="clear-btn right" onClick={() => this.clearRadio(radio)}>
+                                Clear
+                            </div>
+                            <p>
+                                <label htmlFor={radio.f_id + 'no'}>
+                                    <input 
+                                    type="radio" 
+                                    name={radio.name} 
+                                    id={radio.f_id + 'no'}
+                                    value='no'
+                                    onChange={e => setRadioItem('no')}
+                                    />
+                                    <span>No</span>
+                                </label>
+                            </p>
+                        </div>
+                    )
+                })
+            }
+
+            {
+                checkboxes && checkboxes 
+                .map(checkbox => {
+                    return(
+                        <div className="checkbox-area" key={checkbox.f_id}>
+                            <label htmlFor={ checkbox.f_id }>
+                                <input type="checkbox" 
+                                name={checkbox.name} 
+                                id={checkbox.f_id}  
+                                // checked =  {this.state[checkbox.f_id] ? this.state[checkbox.f_id]  : checkbox.value}
+                                onChange = { e => setCheckboxItem('checked')}
+                                className='filled-in' />
+                                <span>{checkbox.label}</span>
+                            </label>
+                        </div>
+                    )
+                })
+            }
+
+        
 
 
 
