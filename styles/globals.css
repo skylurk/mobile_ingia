@@ -278,6 +278,15 @@ a {
   flex-direction: row;
   justify-content: center;
 }
+.checkbox-area{
+  padding: 20px;
+  margin-top: 20px;
+  text-align: left;
+}
+.checkbox-text {
+  margin-bottom: 10px;
+}
+
 
 /* STYLING FOR FORMS  */
 

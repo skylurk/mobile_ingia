@@ -163,24 +163,28 @@ export default function Checkin({ location_id }) {
                 })
             }
 
-            {
-                checkboxes && checkboxes 
-                .map(checkbox => {
-                    return(
-                        <div className="checkbox-area" key={checkbox.f_id}>
-                            <label htmlFor={ checkbox.f_id }>
-                                <input type="checkbox" 
-                                name={checkbox.name} 
-                                id={checkbox.f_id}  
-                                // checked =  {this.state[checkbox.f_id] ? this.state[checkbox.f_id]  : checkbox.value}
-                                onChange = { e => setCheckboxItem('checked')}
-                                className='filled-in' />
-                                <span>{checkbox.label}</span>
-                            </label>
-                        </div>
-                    )
-                })
-            }
+            <div className="checkbox-area z-depth-2">
+                {
+                    checkboxes && checkboxes 
+                    .map(checkbox => {
+                        return(
+                            <div className="checkbox-text" key={checkbox.f_id}>
+                                <label htmlFor={ checkbox.f_id }>
+                                    <input type="checkbox" 
+                                    name={checkbox.name} 
+                                    id={checkbox.f_id}  
+                                    // checked =  {this.state[checkbox.f_id] ? this.state[checkbox.f_id]  : checkbox.value}
+                                    onChange = { e => setCheckboxItem('checked')}
+                                    className='filled-in' />
+                                    <span>{checkbox.label}</span>
+                                </label>
+                            </div>
+                        )
+                    })
+                }
+
+            </div>
+
 
         
 
