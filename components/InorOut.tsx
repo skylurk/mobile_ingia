@@ -27,6 +27,8 @@ function InorOut({ page_id }) {
     }, [])
 
     const location = locationData[0];
+
+    console.log(locationData);
     
     if (location === undefined){
         return (

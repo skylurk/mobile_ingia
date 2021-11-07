@@ -33,7 +33,9 @@ export default function Checkin({ location_id }) {
         }
 
         getLocationItems();
-    }, [])
+    }, []);
+
+    console.log(location_items);
     
     
 
