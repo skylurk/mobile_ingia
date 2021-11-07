@@ -17,10 +17,25 @@ export default function Checkin({ location_id }) {
     const [ location_items, setLocationItems ] = useState([]);
 
     // GET RADIO ITEMS 
-    const radio = location_items ? location_items.filter((rad => rad.type === 'radio' && rad.location === location_id)) : null
+    const radio = location_items ? location_items.filter((rad => rad.type === 'radio' && rad.location === location_id)) : null;
 
     // GET CHECKBOX ITEMS 
-    const checkboxes = location_items ? location_items.filter((loc => loc.type === 'checkbox' && loc.location === location_id)) : null
+    const checkboxes = location_items ? location_items.filter((loc => loc.type === 'checkbox' && loc.location === location_id)) : null;
+
+    // GET TEXT ITEMS 
+    const textfields = location_items ? location_items.filter((text => text.type === 'text' && text.location === location_id)) : null;
+    textfields && textfields.map((text, index) =>{
+        // let texty = text.f_id;
+        // let setTexty = `set${texty}`;
+    });
+
+    const [text, setText] = useState({})
+    
+
+    
+    
+
+    // CREATE STATE FOR ALL TEXTBOX ITEMS 
 
 
     // CREATE LOCATION ITEM REFERENCE 
@@ -36,13 +51,6 @@ export default function Checkin({ location_id }) {
     }, []);
 
     console.log(location_items);
-    
-    
-
-    
-    
-    
-    
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -102,7 +110,8 @@ export default function Checkin({ location_id }) {
                 </label>
             </div>
 
-            { location_items && location_items
+            { 
+                location_items && location_items
                 .filter((sorted_items => sorted_items.type === 'text'))
                 .sort((a,b) => (a.order_by > b.order_by) ? 1 : -1)
                     .map(form_item => {
@@ -115,7 +124,10 @@ export default function Checkin({ location_id }) {
                                 // value= {localStorage.getItem(form_item.f_id)}
                                 required = {form_item.required}
                                 className='validate f-inpt'
-                                // onChange={this.handleChange}
+                                onChange = { e => setText({
+                                    [e.target.id] : e.target.value
+                                })}
+                                // onChange = { e => setTextField(e.target.value)}
                                 />
         
                                 <label htmlFor="full_name" className="active fnt-16">
@@ -182,16 +194,8 @@ export default function Checkin({ location_id }) {
                         )
                     })
                 }
-
             </div>
 
-
-        
-
-
-
-
-            
             <div className="input-field center" >
                     <button className="filled_btn form-btn z-depth-1" id='mobile-btn-width-full'>
                         Check In
