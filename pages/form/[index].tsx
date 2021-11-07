@@ -5,7 +5,14 @@ import Checkout from '../../components/forms/Checkout';
 import Navbar from '../../components/Navbar';
 import LoadingPage from '../../components/loader/LoadingPage';
 
+import { useRouter } from 'next/router'
+
 function index() {
+
+    const router = useRouter();
+    const pid = (router.query);
+    
+    const location_id = pid ? Object.values(pid).toString() : '';
 
     const getData = (data, data2) => {
         console.log(data);
@@ -14,7 +21,7 @@ function index() {
     return (
         <div className='forms'>
             <Navbar />
-            <Checkin />
+            <Checkin location_id = {location_id} />
             <Checkout />
             {/* <LoadingPage func={getData} secfunc={getData}/> */}
         </div>

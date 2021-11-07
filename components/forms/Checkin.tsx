@@ -4,7 +4,7 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { db } from '../../firebase/clientApp';
 import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, where, query } from 'firebase/firestore';
 
-export default function Checkin() {
+export default function Checkin({ location_id }) {
 
     // FORM INPUT 
     const [ first_name, setFirstName ] = useState('');
@@ -15,7 +15,7 @@ export default function Checkin() {
     const [ location_items, setLocationItems ] = useState([]);
 
     // CREATE LOCATION ITEM REFERENCE 
-    const locationItemCollectionRef = query(collection(db, 'location_items'), where("location", "==", "Dp0mDIwrilZXYHPwdROT"));
+    const locationItemCollectionRef = query(collection(db, 'location_items'), where("location", "==", `${location_id}`));
 
     useEffect(() => {
         const getLocationItems = async () => {
@@ -27,13 +27,16 @@ export default function Checkin() {
     }, [])
     
     
+    console.log(location_id);
     console.log(location_items);
+    
     
     
     
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(first_name);
+        console.log(location_id);
     }
 
     return (
@@ -87,6 +90,32 @@ export default function Checkin() {
                     Mobile Number
                 </label>
             </div>
+
+            { location_items && location_items
+                .filter((sorted_items => sorted_items.type === 'text'))
+                .sort((a,b) => (a.order_by > b.order_by) ? 1 : -1)
+                    .map(form_item => {
+                        return (
+                            <div className="input-field mb-40" key={form_item.id}>
+                                <input 
+                                placeholder={form_item.place_holder}
+                                type="text" 
+                                id={ form_item.f_id }
+                                value= {localStorage.getItem(form_item.f_id)}
+                                required = {form_item.required}
+                                className='validate f-inpt'
+                                // onChange={this.handleChange}
+                                />
+        
+                                <label htmlFor="full_name" className="active fnt-16">
+                                    { form_item.label }
+                                </label>
+                            </div>
+                        )
+                    })
+                }
+
+
 
 
             

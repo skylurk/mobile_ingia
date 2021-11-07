@@ -279,6 +279,34 @@ a {
 }
 /* STYLING FOR LOADING PAGE  */
 
+/* STYLING FOR ERROR SCANNING  */
+.error-scanning{
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 20px
+}
+.error-scanning-text{
+  width: 100%;
+  background-color: #fff;
+  border-radius: 5px;
+  box-sizing: border-box;
+  padding: 10px;
+}
+.error-scanning-text h3 {
+  font-size: 14pt;
+  color: #1741FF;
+  font-weight: 500;
+}
+.error-scanning-text h4{
+  font-size: 12pt;
+}
+/* STYLING FOR ERROR SCANNING  */
+
 
 
 

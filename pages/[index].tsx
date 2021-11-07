@@ -9,9 +9,9 @@ import { useRouter } from 'next/dist/client/router';
 export default function Home() {
 
   const router = useRouter();
-  const pid = router.query;
+  const pid = (router.query);
 
-  console.log(pid)
+  const page_id = pid ? Object.values(pid) : '';
   const [showSplash, setShowSplash] = useState(true);
   setTimeout(() => {
     setShowSplash(false)
@@ -20,7 +20,7 @@ export default function Home() {
     <div className='mobile-landing'>
       <Navbar />
       {
-        showSplash ? <Splash /> : <InorOut />
+        showSplash ? <Splash /> : <InorOut page_id = {page_id}/>
       }
       
     </div>
