@@ -44,7 +44,12 @@ function InorOut({ page_id }) {
         return (
             <div className='in-or-out'>
                 <h3> { location.location_name } </h3>
-                <Link href={ '/form/' + location.id }>
+                <Link href={ {
+                    pathname: '/checkin/' + location.id,
+                    // query: {
+                    //     typo : 'in'
+                    // }
+                } }>
                     <a>
                         <button className="filled_btn">
                             Check In
@@ -53,7 +58,7 @@ function InorOut({ page_id }) {
                 </Link>
                 <h4>OR</h4>
     
-                <Link href='/checkout'>
+                <Link href={'/checkout/' + location.id }>
                     <a>
                     <button className="outline_btn">
                         Check Out

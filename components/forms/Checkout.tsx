@@ -1,15 +1,101 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-export default function Checkout() {
+import firebase from '../../firebase/clientApp';
+import { useCollection } from 'react-firebase-hooks/firestore';
+import { db } from '../../firebase/clientApp';
+import { collection, getDocs, getDoc, addDoc, updateDoc, doc, deleteDoc, where, query } from 'firebase/firestore';
+import { useRouter } from 'next/dist/client/router';
+
+export default function Checkout({ location_id }) {
+
+    const router = useRouter();
+    const pid = (router.query)
+     const page_id = pid ? Object.values(pid) : '';
+    const page_id_string = page_id.toString();
+
+    
 
 
+    //PHONE NUMBER AND LOCATION 
     const [ phone_number, setPhoneNumber ] = useState('');
-    const [ location, setLocation ] = useState('');
+    const [ location, setLocation ] = useState(page_id_string);
 
-    const handleSubmit = (e) => {
+    // STATE FOR VISITORS 
+    const [ visitors, setVisitors ] = useState([]);
+
+    // STATE FOR LOCATION QR 
+    const [ locationQR, setLocationQR] = useState('')
+
+    // CREATE LOCATION ITEM REFERENCE 
+    // const locationItemCollectionRef = query(collection(db, 'location_items'), where("location", "==", `${location_id}`));
+
+    // COLLECTION REFERENCE TO VISITOR COLLECTION 
+    const newVisCollectionRef = query(
+        collection(db, 'newVis'), 
+        where('location', '==', `${page_id_string}`)
+    );
+
+    // COLLECTION REFERENCE FOR LOCATIONS 
+    const locationRef = collection(db, 'locations');
+    const locationDoc = doc(locationRef, page_id_string);
+    // collection(db, 'newVis');
+
+    // GET VISITOR DATA 
+    useEffect(() => {
+        const getVisitorData = async () => {
+            const visitor_data = await getDocs(newVisCollectionRef);
+            setVisitors(visitor_data.docs.map((doc) => ({ ...doc.data(), id: doc.id})));
+        }
+
+
+        getVisitorData();
+
+
+        const getLocationQR = async () => {
+            const locationQR = await getDoc(locationDoc);
+            setLocationQR(locationQR.data().location_qr)            
+        }
+
+        getLocationQR();
+    }, []);
+
+    
+
+
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(phone_number);
-        console.log(location);
+        const newVisCollectionRef = collection(db, 'newVis');
+        
+        
+        const visitor = visitors && visitors.find(checkin => 
+            checkin.phone_number === phone_number 
+            && checkin.time_out === '' 
+            && checkin.location === location)
+        
+        if (visitor){
+            const docRef = doc(newVisCollectionRef, visitor.id);
+
+            await updateDoc(docRef, {
+                time_out : new Date()
+            }).then(() =>{
+                console.log('Success');
+                window.location.replace('/checkout/success')
+            }).catch((err) =>{
+                console.log('err', err);
+                window.location.replace('/checkout/error')
+            })
+        }else{
+            alert('error')
+            window.location.replace(`/${locationQR}`)
+        }
+        
+
+
+
+
+        // UPDTAE DOC SHOULD TAKE DOCUMENT REFERENCE AND PAYLOAD 
+        
     }
     return (
         <div className='check-out'>

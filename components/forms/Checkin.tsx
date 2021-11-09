@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import firebase from '../../firebase/clientApp';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import { db } from '../../firebase/clientApp';
-import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, where, query } from 'firebase/firestore';
+import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, where, query, onSnapshot } from 'firebase/firestore';
 
 export default function Checkin({ location_id }) {
 
@@ -10,8 +10,14 @@ export default function Checkin({ location_id }) {
     const [ first_name, setFirstName ] = useState('');
     const [ last_name, setLastName ] = useState('');
     const [ phone_number, setPhoneNumber ] = useState('');
-    const [radioItem, setRadioItem ] = useState('');
-    const [checkboxItem, setCheckboxItem ] = useState('');
+
+    // CREATE STATE FOR TEXTFIELDS  
+    const [text, setText] = useState({}); 
+    // CREATE STATE FOR RADIO BUTTONS 
+    const [radioButton, setRadioButton] = useState({});
+    // CREATE STATE FOR CHECKBOX ITEM 
+    const [checkboxItem, setCheckboxItem ] = useState({});
+
 
     // GET LOCATION ITEMS 
     const [ location_items, setLocationItems ] = useState([]);
@@ -29,33 +35,57 @@ export default function Checkin({ location_id }) {
         // let setTexty = `set${texty}`;
     });
 
-    const [text, setText] = useState({})
-    
 
-    
-    
 
     // CREATE STATE FOR ALL TEXTBOX ITEMS 
 
 
     // CREATE LOCATION ITEM REFERENCE 
-    const locationItemCollectionRef = query(collection(db, 'location_items'), where("location", "==", `${location_id}`));
+    const locationItemCollectionRef = query(
+        collection(db, 'location_items'),
+         where("location", "==", `${location_id}`));
 
     useEffect(() => {
-        const getLocationItems = async () => {
-            const location_items_data = await getDocs(locationItemCollectionRef);
-            setLocationItems(location_items_data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+        // const getLocationItems = async () => {
+        //     const location_items_data = await getDocs(locationItemCollectionRef);
+        //     setLocationItems(location_items_data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+        // }
+
+        const getLocationItems = async () =>{
+            onSnapshot(locationItemCollectionRef, (snapshot) =>{
+                setLocationItems(snapshot.docs.map((doc) => ({...doc.data(), id: doc.id})))
+                
+                // setLocationItems(location_items_data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+            })
         }
 
         getLocationItems();
     }, []);
 
-    console.log(location_items);
+    const newVisCollectionRef = collection(db, 'newVis');
+
+    console.log(location_id);
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(first_name);
-        console.log(location_id);
+        await addDoc(newVisCollectionRef, {
+            first_name: first_name, 
+            last_name: last_name, 
+            phone_number: phone_number, 
+            time_in : new Date(),
+            time_out : '',
+            location : location_id,
+            ...text, 
+            ...radioButton, 
+            ...checkboxItem
+        }).then(() => {
+            console.log('Success');
+            window.location.replace('/checkin/success');
+        }).catch((err) => {
+            console.log('Error', err);
+            window.location.replace('/checkin/error');
+            
+        })
     }
 
     return (
@@ -124,7 +154,7 @@ export default function Checkin({ location_id }) {
                                 // value= {localStorage.getItem(form_item.f_id)}
                                 required = {form_item.required}
                                 className='validate f-inpt'
-                                onChange = { e => setText({
+                                onChange = { e => setText({...text,
                                     [e.target.id] : e.target.value
                                 })}
                                 // onChange = { e => setTextField(e.target.value)}
@@ -150,7 +180,11 @@ export default function Checkin({ location_id }) {
                                     name={radio.name} 
                                     id={radio.f_id + 'yes'}
                                     value='yes'
-                                    onChange={e => setRadioItem('yes')}
+                                    onChange = { e => setRadioButton({...radioButton,
+                                        [e.target.name] : e.target.value
+                                    })}
+
+                                    // onChange={e => setRadioItem('yes')}
                                     />
                                     <span>Yes</span>
                                 </label>
@@ -165,7 +199,10 @@ export default function Checkin({ location_id }) {
                                     name={radio.name} 
                                     id={radio.f_id + 'no'}
                                     value='no'
-                                    onChange={e => setRadioItem('no')}
+                                    onChange = { e => setRadioButton({...radioButton,
+                                        [e.target.name] : e.target.value
+                                    })}
+                                    // onChange={e => setRadioItem('no')}
                                     />
                                     <span>No</span>
                                 </label>
@@ -186,7 +223,12 @@ export default function Checkin({ location_id }) {
                                     name={checkbox.name} 
                                     id={checkbox.f_id}  
                                     // checked =  {this.state[checkbox.f_id] ? this.state[checkbox.f_id]  : checkbox.value}
-                                    onChange = { e => setCheckboxItem('checked')}
+
+                                    onChange = { e => setCheckboxItem({...checkboxItem,
+                                        [e.target.id] : e.target.checked
+                                    })}
+
+                                    // onChange = { e => setCheckboxItem('checked')}
                                     className='filled-in' />
                                     <span>{checkbox.label}</span>
                                 </label>
@@ -205,32 +247,3 @@ export default function Checkin({ location_id }) {
     </div>
     )
 }
-
-// class  Checkin extends  Component{
-//     state = {
-//         first_name : '',
-//         last_name : '', 
-//         phone_number : ''
-//     }
-    
-//     handleSubmit = (e) => {
-//         e.preventDefault() ;
-//         console.log(this.state);
-//     }
-
-//     handleChange = (e) => {
-//         this.setState({
-//             [e.target.id] : e.target.value
-//         })
-//     }
-    
-//     render() {
-//         console.log(this.state)
-//         return (
-
-//             )
-//     }  
- 
-// }
-
-// export default Checkin

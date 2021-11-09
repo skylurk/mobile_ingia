@@ -7,7 +7,8 @@ import LoadingPage from '../../components/loader/LoadingPage';
 
 import { useRouter } from 'next/router'
 
-function index() {
+function index(context) {
+    
 
     const router = useRouter();
     const pid = (router.query);
@@ -22,7 +23,7 @@ function index() {
         <div className='forms'>
             <Navbar />
             <Checkin location_id = {location_id} />
-            <Checkout />
+            {/* <Checkout location_id = {location_id}/> */}
             {/* <LoadingPage func={getData} secfunc={getData}/> */}
         </div>
     )

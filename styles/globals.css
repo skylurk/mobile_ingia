@@ -150,10 +150,11 @@ a {
   height: 100vh;
 }
 .check-in, .check-out{
-  height: 4000px;
+  /* height: 4000px; */
   text-align: center;
   padding-left: 5%;
   padding-right: 5%;
+  padding-top: 70px;
 }
 .checkin-form{
   width: 100%;
@@ -341,3 +342,37 @@ a {
 
 
 
+
+/* STYLING FOR SUCCESS PAGE  */
+.success-page {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.success-page h4 {
+  margin: 0;
+  text-align: center;
+  font-size: 26pt;
+}
+.success-page i {
+  font-size: 30vw;
+  color: #1741FF;
+}
+.success-page h3 {
+  margin: 0;
+  text-align: center;
+  color: #A59191;
+  font-size: 22pt;
+}
+.success-page h5{
+  margin: 0;
+  text-align: center;
+}
+/* STYLING FOR SUCCESS PAGE  */
