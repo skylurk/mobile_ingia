@@ -62,7 +62,7 @@ export default function Checkin({ location_id }) {
         getLocationItems();
     }, []);
 
-    const newVisCollectionRef = collection(db, 'newVis');
+    const newVisCollectionRef = collection(db, 'visitors');
 
     console.log(location_id);
     
