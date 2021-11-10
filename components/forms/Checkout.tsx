@@ -55,6 +55,11 @@ export default function Checkout() {
             
         }
 
+        const pNum = localStorage.getItem('phone_number');
+        setPhoneNumber(pNum)
+
+        console.log(phone_number)
+
 
     }, [router])
     
@@ -95,9 +100,13 @@ export default function Checkout() {
                             type='tel'
                             minLength={ 8 }
                             id='phone_number'
+                            value={ phone_number }
                             required
                             className='validate f-input'
-                            onChange={e => setPhoneNumber(e.target.value)}
+                            onChange={(e) => {
+                                setPhoneNumber(e.target.value);
+                                localStorage.setItem(e.target.id, e.target.value);
+                            }}
                             />
                         <label htmlFor="phone_number" className="active fnt-16">
                             Mobile Number

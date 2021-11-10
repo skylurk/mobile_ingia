@@ -59,6 +59,14 @@ export default function Checkin({ location_id }) {
             })
         }
 
+        const fName = localStorage.getItem('first_name');
+        const lName = localStorage.getItem('last_name');
+        const pNum = localStorage.getItem('phone_number');
+        setFirstName(fName);
+        setLastName(lName);
+        setPhoneNumber(pNum);
+        
+
         getLocationItems();
     }, []);
 
@@ -99,8 +107,12 @@ export default function Checkin({ location_id }) {
                 type="text" 
                 id='first_name'
                 required 
+                value={ first_name }
                 className='validate f-inpt'
-                onChange={e => setFirstName(e.target.value)}
+                onChange={(e) => {
+                    setFirstName(e.target.value);
+                    localStorage.setItem(e.target.id, e.target.value);
+                }}
                 />
 
                 <label htmlFor="first_name" className="active fnt-16">
@@ -113,9 +125,13 @@ export default function Checkin({ location_id }) {
                 placeholder='Last Name...'
                 type="text" 
                 id='last_name'
-                required 
+                required
+                value={ last_name } 
                 className='validate f-inpt'
-                onChange={e => setLastName(e.target.value)}
+                onChange={(e) => {
+                    setLastName(e.target.value);
+                    localStorage.setItem(e.target.id, e.target.value);
+                }}
                 />
 
                 <label htmlFor="last_name" className="active fnt-16">
@@ -129,10 +145,13 @@ export default function Checkin({ location_id }) {
                 type="tel" 
                 minLength={ 8 }
                 id='phone_number'
-                // value={ localStorage.getItem('phone_number') }
+                value={ phone_number }
                 required 
                 className='validate f-inpt'
-                onChange={e => setPhoneNumber(e.target.value)}
+                onChange={(e) => {
+                    setPhoneNumber(e.target.value);
+                    localStorage.setItem(e.target.id, e.target.value);
+                }}
                 />
 
                 <label htmlFor="phone_number" className="active fnt-16">
@@ -154,9 +173,17 @@ export default function Checkin({ location_id }) {
                                 // value= {localStorage.getItem(form_item.f_id)}
                                 required = {form_item.required}
                                 className='validate f-inpt'
-                                onChange = { e => setText({...text,
-                                    [e.target.id] : e.target.value
-                                })}
+
+                                onChange = { (e) => {
+                                    setText({...text, [e.target.id] : e.target.value});
+                                    localStorage.setItem(e.target.id, e.target.value);
+                                }}
+
+                                // onChange = { e => setText({...text,
+                                //     [e.target.id] : e.target.value,
+                                    
+                                    
+                                // })}
                                 // onChange = { e => setTextField(e.target.value)}
                                 />
         
