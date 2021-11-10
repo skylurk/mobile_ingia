@@ -28,7 +28,7 @@ function InorOut({ page_id }) {
 
 
     // GET RADIUS 
-    const [ radius, setRadius ] = useState(false);
+    const [ radius, setRadius ] = useState(null);
 
     const location = locationData[0];
 
@@ -133,7 +133,7 @@ function InorOut({ page_id }) {
                     </Link>
                 </div>
             )
-        } else{
+        } else if(radius === false){
             return (
                 <div className="loading">
                     <div className="geofence-err z-depth-2">
@@ -142,6 +142,12 @@ function InorOut({ page_id }) {
                             You have to be withing 200 meters of the location you are trying to check in/out of 
                         </h5>
                     </div>
+                </div>
+            )
+        } else {
+            return (
+                <div className='loading'> 
+                    <LoadingPage />
                 </div>
             )
         }

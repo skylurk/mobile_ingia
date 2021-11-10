@@ -31,7 +31,7 @@ export default function Checkout() {
 
             // COLLECTION REFERENCE TO VISITOR COLLECTION 
             const newVisCollectionRef = query(
-                collection(db, 'newVis'), 
+                collection(db, 'visitors'), 
                 where('location', '==', `${router.query.index}`)
             );
 
@@ -61,7 +61,7 @@ export default function Checkout() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const newVisCollectionRef = collection(db, 'newVis');
+        const newVisCollectionRef = collection(db, 'visitors');
 
         const visitor = visitors && visitors.find(checkin => 
             checkin.phone_number === phone_number 
