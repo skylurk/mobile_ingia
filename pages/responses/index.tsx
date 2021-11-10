@@ -1,7 +1,9 @@
+import { PuffLoader, PulseLoader } from "react-spinners";
+import LoadingPage from "../../components/loader/LoadingPage";
 const Responses = () => {
     return ( 
-        <div className="responses-page">
-            Response
+        <div className="loading">
+           <LoadingPage />
         </div>
      );
 }

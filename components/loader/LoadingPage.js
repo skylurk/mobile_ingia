@@ -1,12 +1,12 @@
 import { PuffLoader, PulseLoader  } from "react-spinners";
 
-const LoadingPage = (props) => {
-    props.func('My name is Dean Winchester & this is my brother Sammie');
-    props.secfunc('We hypnotize');
+const LoadingPage = () => {
     return ( 
-        <div className="loading-page">
-            <PuffLoader size='150px' color='#1741ff' />
-            <h4>Loading <PulseLoader size='4px'  color='#1741ff'/></h4>
+        <div className="loading">
+            <PuffLoader size='200px' color='#1741ff' />
+            <h4 className='ingia-blue-txt'>
+                Loading<PulseLoader size='4px' color='#1741ff'/>
+            </h4>
         </div>
      );
 }

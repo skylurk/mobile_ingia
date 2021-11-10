@@ -12,12 +12,13 @@ function CheckOut() {
 
     const location_id = pid ? Object.values(pid).toString() : '';
 
-    console.log(location_id);
+    // console.log(location_id);
     
     return (
         <div className='forms'>
             <Navbar />
-            <Checkout location_id = {location_id}/>
+            <Checkout />
+            {/* <Checkout location_id = {location_id}/> */}
         </div>
     )
 }

@@ -112,7 +112,8 @@ a {
   justify-content: center;
   align-items: center;
   position: fixed;
-  z-index: 20;
+  top: 0;
+  z-index: 200;
 }
 .splash-screen img {
   width: 90%;
@@ -376,3 +377,29 @@ a {
   text-align: center;
 }
 /* STYLING FOR SUCCESS PAGE  */
+
+.loading{
+  height: 100vh;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* STYLING FOR GEOLOCATION ERROR  */
+.geofence-err{
+  width: 80%;
+  padding: 20px
+}
+.geofence-err h4 {
+  font-size: 16pt;
+  font-weight: bold;
+}
+.geofence-err h5 {
+  font-size: 14pt;
+  font-weight: 400;
+}
+/* STYLING FOR GEOLOCATION ERROR  */
