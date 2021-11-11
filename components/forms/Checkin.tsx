@@ -29,11 +29,13 @@ export default function Checkin({ location_id }) {
     const checkboxes = location_items ? location_items.filter((loc => loc.type === 'checkbox' && loc.location === location_id)) : null;
 
     // GET TEXT ITEMS 
-    const textfields = location_items ? location_items.filter((text => text.type === 'text' && text.location === location_id)) : null;
-    textfields && textfields.map((text, index) =>{
-        // let texty = text.f_id;
-        // let setTexty = `set${texty}`;
-    });
+    // const textfields = location_items ? location_items.filter((text => text.type === 'text' && text.location === location_id)) : null;
+    // textfields && textfields.map((text, index) =>{
+
+    // });
+
+    // console.log('we', textfields);
+    
 
 
 
@@ -51,6 +53,14 @@ export default function Checkin({ location_id }) {
         //     setLocationItems(location_items_data.docs.map((doc) => ({...doc.data(), id: doc.id})));
         // }
 
+            // GET TEXT ITEMS 
+    const textfields = location_items ? location_items.filter((text => text.type === 'text' && text.location === location_id)) : null;
+    textfields && textfields.map((text, index) =>{
+        // let texty = text.f_id;
+        // let setTexty = `set${texty}`;
+    });
+
+
         const getLocationItems = async () =>{
             onSnapshot(locationItemCollectionRef, (snapshot) =>{
                 setLocationItems(snapshot.docs.map((doc) => ({...doc.data(), id: doc.id})))
@@ -58,6 +68,9 @@ export default function Checkin({ location_id }) {
                 // setLocationItems(location_items_data.docs.map((doc) => ({...doc.data(), id: doc.id})));
             })
         }
+
+        console.log('sd',textfields);
+        
 
         const fName = localStorage.getItem('first_name');
         const lName = localStorage.getItem('last_name');

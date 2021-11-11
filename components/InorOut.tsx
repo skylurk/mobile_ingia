@@ -76,7 +76,7 @@ function InorOut({ page_id }) {
                 if (lat && lng && cLng && cLat){
                     const geoFence = geolib.isPointWithinRadius(
                         { latitude: lat, longitude: lng},
-                        { latitude: cLat, longitude: cLng}, 30000
+                        { latitude: cLat, longitude: cLng}, 200
                     );
                     console.log('e', geoFence);
                     setRadius(geoFence);
