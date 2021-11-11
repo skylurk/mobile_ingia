@@ -3,7 +3,15 @@ import  Link  from 'next/link';
 
 import firebase, { db } from '../firebase/clientApp';
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { collection, getDocs, getDoc, addDoc, updateDoc, doc, deleteDoc, where, query } from 'firebase/firestore';
+import { collection, 
+    getDocs, 
+    getDoc, 
+    addDoc, 
+    updateDoc, 
+    doc, 
+    deleteDoc, 
+    where, 
+    query } from 'firebase/firestore';
 import LoadingPage from './loader/LoadingPage';
 
 import * as geolib from 'geolib';
