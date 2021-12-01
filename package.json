@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "npm run build && next export && mv out _static"
+    "export": "npm run build && next export -o _static"
   },
   "dependencies": {
     "@material-ui/core": "^4.12.3",
@@ -27,7 +27,7 @@
     "@types/node": "^16.11.6",
     "@types/react": "^17.0.34",
     "css-loader": "^6.5.0",
-    "eslint": "8.1.0",
+    "eslint": "^8.1.0",
     "eslint-config-next": "11.1.2",
     "install": "^0.13.0",
     "npm": "^8.1.1",
